@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Reports - Admin Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="../styles.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav class="col-md-3 col-lg-2 d-md-block admin-sidebar collapse">
+                <div class="position-sticky pt-3">
+                    <div class="text-center mb-4">
+                        <h4 class="text-white">
+                            <i class="fas fa-bus me-2"></i>BusGo Admin
+                        </h4>
+                        <small class="text-muted">Administration Panel</small>
+                    </div>
+                    
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="dashboard.html">
+                                <i class="fas fa-tachometer-alt"></i>
+                                Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="buses.html">
+                                <i class="fas fa-bus"></i>
+                                Manage Buses
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="routes.html">
+                                <i class="fas fa-route"></i>
+                                Manage Routes
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="bookings.html">
+                                <i class="fas fa-ticket-alt"></i>
+                                Booking Reports
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="users.html">
+                                <i class="fas fa-users"></i>
+                                Manage Users
+                            </a>
+                        </li>
+                        <li class="nav-item mt-3">
+                            <a class="nav-link" href="../index.html">
+                                <i class="fas fa-home"></i>
+                                Back to Website
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="logout()">
+                                <i class="fas fa-sign-out-alt"></i>
+                                Logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Main content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Booking Reports</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <div class="btn-group me-2">
+                            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="exportBookings()">
+                                <i class="fas fa-download me-1"></i>Export
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Booking Stats -->
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <div class="stats-card text-center">
+                            <h3 id="totalBookings">0</h3>
+                            <p class="mb-0">Total Bookings</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stats-card text-center">
+                            <h3 id="confirmedBookings">0</h3>
+                            <p class="mb-0">Confirmed</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stats-card text-center">
+                            <h3 id="cancelledBookings">0</h3>
+                            <p class="mb-0">Cancelled</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stats-card text-center">
+                            <h3 id="totalRevenue">$0</h3>
+                            <p class="mb-0">Total Revenue</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filters -->
+                <div class="card shadow mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="fas fa-filter me-2"></i>Filters
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="statusFilter" class="form-label">Status</label>
+                                <select class="form-select" id="statusFilter">
+                                    <option value="">All Status</option>
+                                    <option value="confirmed">Confirmed</option>
+                                    <option value="cancelled">Cancelled</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="dateFilter" class="form-label">Date Range</label>
+                                <input type="date" class="form-control" id="dateFilter">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="busFilter" class="form-label">Bus</label>
+                                <select class="form-select" id="busFilter">
+                                    <option value="">All Buses</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">&nbsp;</label>
+                                <div>
+                                    <button class="btn btn-primary" onclick="applyFilters()">
+                                        <i class="fas fa-search me-2"></i>Apply Filters
+                                    </button>
+                                    <button class="btn btn-secondary ms-2" onclick="clearFilters()">
+                                        <i class="fas fa-times me-2"></i>Clear
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bookings Table -->
+                <div class="card shadow">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="fas fa-list me-2"></i>All Bookings
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-custom">
+                                <thead>
+                                    <tr>
+                                        <th>Booking ID</th>
+                                        <th>Customer</th>
+                                        <th>Bus Details</th>
+                                        <th>Journey Date</th>
+                                        <th>Passengers</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="bookingsTableBody">
+                                    <!-- Bookings will be loaded here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Booking Details Modal -->
+    <div class="modal fade" id="bookingDetailsModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-ticket-alt me-2"></i>Booking Details
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="bookingDetailsContent">
+                    <!-- Booking details will be loaded here -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Cancellation Modal -->
+    <div class="modal fade" id="adminCancelModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-exclamation-triangle me-2"></i>Admin Cancellation
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>Booking Details</h6>
+                            <div id="adminCancelBookingDetails">
+                                <!-- Booking details will be shown here -->
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Admin Cancellation Form</h6>
+                            <form id="adminCancellationForm">
+                                <div class="mb-3">
+                                    <label for="adminCancellationReason" class="form-label">Cancellation Reason</label>
+                                    <select class="form-select" id="adminCancellationReason" required>
+                                        <option value="">Select a reason</option>
+                                        <option value="bus_breakdown">Bus Breakdown</option>
+                                        <option value="weather_conditions">Weather Conditions</option>
+                                        <option value="route_closure">Route Closure</option>
+                                        <option value="operational_issues">Operational Issues</option>
+                                        <option value="safety_concerns">Safety Concerns</option>
+                                        <option value="customer_request">Customer Request</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="adminCancellationComments" class="form-label">Admin Comments</label>
+                                    <textarea class="form-control" id="adminCancellationComments" rows="3" placeholder="Please provide detailed explanation for cancellation" required></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="refundPolicy" class="form-label">Refund Policy</label>
+                                    <select class="form-select" id="refundPolicy" required>
+                                        <option value="">Select refund policy</option>
+                                        <option value="full_refund">Full Refund</option>
+                                        <option value="partial_refund">Partial Refund</option>
+                                        <option value="credit_voucher">Credit Voucher</option>
+                                        <option value="no_refund">No Refund</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="refundAmount" class="form-label">Refund Amount ($)</label>
+                                    <input type="number" class="form-control" id="refundAmount" step="0.01" min="0" placeholder="Enter refund amount">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="notificationMethod" class="form-label">Notification Method</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="emailNotification" checked>
+                                        <label class="form-check-label" for="emailNotification">
+                                            Send Email Notification
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="smsNotification">
+                                        <label class="form-check-label" for="smsNotification">
+                                            Send SMS Notification
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="alert alert-warning">
+                                    <h6>Cancellation Impact</h6>
+                                    <div id="cancellationImpact">
+                                        <!-- Impact details will be calculated here -->
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" id="confirmAdminCancel">Confirm Cancellation</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../script.js"></script>
+    <script>
+        let allBookings = [];
+        let filteredBookings = [];
+        let users = [];
+        
+        // Check admin authentication
+        function checkAdminAuth() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (!currentUser || currentUser.role !== 'admin') {
+                alert('Access denied. Admin privileges required.');
+                window.location.href = '../login.html';
+                return false;
+            }
+            return true;
+        }
+        
+        // Load bookings data
+        function loadBookingsData() {
+            if (!checkAdminAuth()) return;
+            
+            allBookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+            users = JSON.parse(localStorage.getItem('users') || '[]');
+            filteredBookings = [...allBookings];
+            
+            updateStats();
+            displayBookings();
+            populateFilters();
+        }
+        
+        // Update booking statistics
+        function updateStats() {
+            const totalBookings = allBookings.length;
+            const confirmedBookings = allBookings.filter(b => b.status === 'confirmed').length;
+            const cancelledBookings = allBookings.filter(b => b.status === 'cancelled').length;
+            const totalRevenue = allBookings
+                .filter(b => b.status === 'confirmed')
+                .reduce((sum, b) => sum + b.totalAmount, 0);
+            
+            document.getElementById('totalBookings').textContent = totalBookings;
+            document.getElementById('confirmedBookings').textContent = confirmedBookings;
+            document.getElementById('cancelledBookings').textContent = cancelledBookings;
+            document.getElementById('totalRevenue').textContent = '$' + totalRevenue;
+        }
+        
+        // Display bookings
+        function displayBookings() {
+            const tableBody = document.getElementById('bookingsTableBody');
+            let html = '';
+            
+            if (filteredBookings.length === 0) {
+                html = '<tr><td colspan="8" class="text-center text-muted">No bookings found</td></tr>';
+            } else {
+                // Sort by booking date (newest first)
+                filteredBookings.sort((a, b) => new Date(b.bookingDate) - new Date(a.bookingDate));
+                
+                filteredBookings.forEach(booking => {
+                    const user = users.find(u => u.id === booking.userId);
+                    const statusClass = booking.status === 'confirmed' ? 'status-running' : 'status-cancelled';
+                    
+                    html += `
+                        <tr>
+                            <td>
+                                <strong>#${booking.id}</strong>
+                                <br>
+                                <small class="text-muted">${formatDate(booking.bookingDate)}</small>
+                            </td>
+                            <td>
+                                <div class="fw-bold">${user ? user.name : 'Unknown User'}</div>
+                                <div class="small text-muted">${user ? user.email : ''}</div>
+                            </td>
+                            <td>
+                                <div class="fw-bold">${booking.busNumber}</div>
+                                <div class="text-muted">
+                                    ${booking.from} → ${booking.to}
+                                </div>
+                                <div class="small text-muted">
+                                    ${booking.departureTime} - ${booking.arrivalTime}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="fw-bold">${formatDate(booking.date)}</div>
+                                <div class="small text-muted">
+                                    ${new Date(booking.date) > new Date() ? 'Upcoming' : 'Completed'}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="fw-bold">${booking.numberOfPassengers}</div>
+                                <div class="small text-muted">passenger(s)</div>
+                            </td>
+                            <td>
+                                <div class="fw-bold text-primary">$${booking.totalAmount}</div>
+                            </td>
+                            <td>
+                                <span class="badge ${statusClass}">${booking.status.toUpperCase()}</span>
+                            </td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <button class="btn btn-sm btn-outline-primary" onclick="viewBookingDetails(${booking.id})">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    ${booking.status === 'confirmed' ? `
+                                        <button class="btn btn-sm btn-outline-warning" onclick="cancelBooking(${booking.id})">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    ` : ''}
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                });
+            }
+            
+            tableBody.innerHTML = html;
+        }
+        
+        // Populate filter options
+        function populateFilters() {
+            const busFilter = document.getElementById('busFilter');
+            const buses = JSON.parse(localStorage.getItem('buses') || '[]');
+            const uniqueBuses = [...new Set(buses.map(bus => bus.busNumber))];
+            
+            uniqueBuses.forEach(busNumber => {
+                const option = document.createElement('option');
+                option.value = busNumber;
+                option.textContent = busNumber;
+                busFilter.appendChild(option);
+            });
+        }
+        
+        // Apply filters
+        function applyFilters() {
+            const statusFilter = document.getElementById('statusFilter').value;
+            const dateFilter = document.getElementById('dateFilter').value;
+            const busFilter = document.getElementById('busFilter').value;
+            
+            filteredBookings = allBookings.filter(booking => {
+                let matches = true;
+                
+                if (statusFilter && booking.status !== statusFilter) {
+                    matches = false;
+                }
+                
+                if (dateFilter && booking.date !== dateFilter) {
+                    matches = false;
+                }
+                
+                if (busFilter && booking.busNumber !== busFilter) {
+                    matches = false;
+                }
+                
+                return matches;
+            });
+            
+            displayBookings();
+        }
+        
+        // Clear filters
+        function clearFilters() {
+            document.getElementById('statusFilter').value = '';
+            document.getElementById('dateFilter').value = '';
+            document.getElementById('busFilter').value = '';
+            filteredBookings = [...allBookings];
+            displayBookings();
+        }
+        
+        // View booking details
+        function viewBookingDetails(bookingId) {
+            const booking = allBookings.find(b => b.id === bookingId);
+            const user = users.find(u => u.id === booking.userId);
+            
+            if (!booking) return;
+            
+            let passengersHtml = '';
+            booking.passengers.forEach((passenger, index) => {
+                passengersHtml += `
+                    <div class="row mb-2">
+                        <div class="col-md-3">
+                            <strong>Passenger ${index + 1}:</strong>
+                        </div>
+                        <div class="col-md-9">
+                            ${passenger.firstName} ${passenger.lastName} (${passenger.age} years, ${passenger.gender})
+                        </div>
+                    </div>
+                `;
+            });
+            
+            const content = `
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>Customer Information</h6>
+                        <p><strong>Name:</strong> ${user ? user.name : 'Unknown User'}</p>
+                        <p><strong>Email:</strong> ${user ? user.email : 'N/A'}</p>
+                        <p><strong>Phone:</strong> ${user ? user.phone : 'N/A'}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Booking Information</h6>
+                        <p><strong>Booking ID:</strong> #${booking.id}</p>
+                        <p><strong>Status:</strong> <span class="badge ${booking.status === 'confirmed' ? 'status-running' : 'status-cancelled'}">${booking.status.toUpperCase()}</span></p>
+                        <p><strong>Total Amount:</strong> $${booking.totalAmount}</p>
+                        <p><strong>Booked On:</strong> ${formatDate(booking.bookingDate)}</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>Journey Details</h6>
+                        <p><strong>Bus:</strong> ${booking.busNumber}</p>
+                        <p><strong>Route:</strong> ${booking.from} → ${booking.to}</p>
+                        <p><strong>Date:</strong> ${formatDate(booking.date)}</p>
+                        <p><strong>Time:</strong> ${booking.departureTime} - ${booking.arrivalTime}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Passenger Details</h6>
+                        ${passengersHtml}
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('bookingDetailsContent').innerHTML = content;
+            const modal = new bootstrap.Modal(document.getElementById('bookingDetailsModal'));
+            modal.show();
+        }
+        
+        // Cancel booking
+        function cancelBooking(bookingId) {
+            const booking = allBookings.find(b => b.id === bookingId);
+            if (!booking) return;
+            
+            // Show admin cancellation modal
+            showAdminCancelModal(booking);
+        }
+        
+        // Show admin cancellation modal
+        function showAdminCancelModal(booking) {
+            const detailsContainer = document.getElementById('adminCancelBookingDetails');
+            const user = users.find(u => u.id === booking.userId);
+            
+            detailsContainer.innerHTML = `
+                <div class="alert alert-warning">
+                    <strong>Booking ID:</strong> #${booking.id}<br>
+                    <strong>Customer:</strong> ${user ? user.name : 'Unknown User'}<br>
+                    <strong>Bus:</strong> ${booking.busNumber}<br>
+                    <strong>Route:</strong> ${booking.from} → ${booking.to}<br>
+                    <strong>Date:</strong> ${formatDate(booking.date)}<br>
+                    <strong>Time:</strong> ${booking.departureTime} - ${booking.arrivalTime}<br>
+                    <strong>Passengers:</strong> ${booking.numberOfPassengers}<br>
+                    <strong>Amount:</strong> $${booking.totalAmount}
+                </div>
+            `;
+            
+            // Calculate cancellation impact
+            calculateCancellationImpact(booking);
+            
+            // Set default refund amount
+            document.getElementById('refundAmount').value = booking.totalAmount;
+            
+            const modal = new bootstrap.Modal(document.getElementById('adminCancelModal'));
+            modal.show();
+        }
+        
+        // Calculate cancellation impact
+        function calculateCancellationImpact(booking) {
+            const journeyDate = new Date(booking.date);
+            const currentDate = new Date();
+            const hoursUntilJourney = (journeyDate - currentDate) / (1000 * 60 * 60);
+            
+            let impactLevel = '';
+            let impactDescription = '';
+            
+            if (hoursUntilJourney > 24) {
+                impactLevel = 'Low';
+                impactDescription = 'Customer has time to make alternative arrangements';
+            } else if (hoursUntilJourney > 6) {
+                impactLevel = 'Medium';
+                impactDescription = 'Customer may face some inconvenience';
+            } else {
+                impactLevel = 'High';
+                impactDescription = 'Customer will face significant inconvenience';
+            }
+            
+            const impactContainer = document.getElementById('cancellationImpact');
+            impactContainer.innerHTML = `
+                <p><strong>Impact Level:</strong> <span class="badge bg-${impactLevel === 'High' ? 'danger' : impactLevel === 'Medium' ? 'warning' : 'success'}">${impactLevel}</span></p>
+                <p><strong>Time Until Journey:</strong> ${Math.round(hoursUntilJourney)} hours</p>
+                <p><strong>Description:</strong> ${impactDescription}</p>
+                <p><strong>Revenue Impact:</strong> -$${booking.totalAmount}</p>
+            `;
+        }
+        
+        // Export bookings
+        function exportBookings() {
+            const csvContent = generateCSV();
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'bookings_report.csv';
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+        
+        // Generate CSV
+        function generateCSV() {
+            const headers = ['Booking ID', 'Customer', 'Bus', 'Route', 'Date', 'Passengers', 'Amount', 'Status', 'Booking Date'];
+            const rows = filteredBookings.map(booking => {
+                const user = users.find(u => u.id === booking.userId);
+                return [
+                    booking.id,
+                    user ? user.name : 'Unknown User',
+                    booking.busNumber,
+                    `${booking.from} → ${booking.to}`,
+                    formatDate(booking.date),
+                    booking.numberOfPassengers,
+                    `$${booking.totalAmount}`,
+                    booking.status.toUpperCase(),
+                    formatDate(booking.bookingDate)
+                ];
+            });
+            
+            return [headers, ...rows].map(row => row.join(',')).join('\n');
+        }
+        
+        // Logout function
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = '../login.html';
+        }
+        
+        // Confirm admin cancellation
+        document.getElementById('confirmAdminCancel').addEventListener('click', function() {
+            // Validate form
+            const reason = document.getElementById('adminCancellationReason').value;
+            const comments = document.getElementById('adminCancellationComments').value;
+            const refundPolicy = document.getElementById('refundPolicy').value;
+            const refundAmount = parseFloat(document.getElementById('refundAmount').value);
+            
+            if (!reason || !comments || !refundPolicy) {
+                alert('Please fill in all required fields');
+                return;
+            }
+            
+            if (isNaN(refundAmount) || refundAmount < 0) {
+                alert('Please enter a valid refund amount');
+                return;
+            }
+            
+            // Get the booking being cancelled
+            const bookingDetails = document.getElementById('adminCancelBookingDetails').innerHTML;
+            const bookingIdMatch = bookingDetails.match(/#(\d+)/);
+            if (!bookingIdMatch) {
+                alert('Error: Could not identify booking');
+                return;
+            }
+            
+            const bookingId = parseInt(bookingIdMatch[1]);
+            const booking = allBookings.find(b => b.id === bookingId);
+            if (!booking) {
+                alert('Error: Booking not found');
+                return;
+            }
+            
+            // Get notification preferences
+            const emailNotification = document.getElementById('emailNotification').checked;
+            const smsNotification = document.getElementById('smsNotification').checked;
+            
+            // Create admin cancellation record
+            const adminCancellationData = {
+                bookingId: bookingId,
+                cancelledBy: JSON.parse(localStorage.getItem('currentUser')).id,
+                cancelledByRole: 'admin',
+                cancellationDate: new Date().toISOString(),
+                reason: reason,
+                comments: comments,
+                refundPolicy: refundPolicy,
+                refundAmount: refundAmount,
+                emailNotification: emailNotification,
+                smsNotification: smsNotification,
+                journeyDate: booking.date,
+                originalAmount: booking.totalAmount
+            };
+            
+            // Store admin cancellation record
+            const cancellations = JSON.parse(localStorage.getItem('cancellations') || '[]');
+            cancellations.push(adminCancellationData);
+            localStorage.setItem('cancellations', JSON.stringify(cancellations));
+            
+            // Update booking status
+            const bookingIndex = allBookings.findIndex(b => b.id === bookingId);
+            if (bookingIndex !== -1) {
+                allBookings[bookingIndex].status = 'cancelled';
+                allBookings[bookingIndex].cancellationDetails = adminCancellationData;
+                localStorage.setItem('bookings', JSON.stringify(allBookings));
+                
+                // Update bus available seats
+                const buses = JSON.parse(localStorage.getItem('buses') || '[]');
+                const busIndex = buses.findIndex(bus => bus.id === booking.busId);
+                if (busIndex !== -1) {
+                    buses[busIndex].availableSeats += booking.numberOfPassengers;
+                    localStorage.setItem('buses', JSON.stringify(buses));
+                }
+                
+                // Reload data
+                loadBookingsData();
+                
+                // Close modal
+                const modal = bootstrap.Modal.getInstance(document.getElementById('adminCancelModal'));
+                modal.hide();
+                
+                // Show success message
+                const successMessage = `
+                    Booking cancelled successfully!
+                    
+                    Cancellation Details:
+                    - Reason: ${reason}
+                    - Refund Amount: $${refundAmount.toFixed(2)}
+                    - Refund Policy: ${refundPolicy}
+                    - Notifications: ${emailNotification ? 'Email' : ''}${emailNotification && smsNotification ? ', ' : ''}${smsNotification ? 'SMS' : ''}
+                    
+                    Customer will be notified of the cancellation.
+                `;
+                alert(successMessage);
+            }
+        });
+        
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            loadBookingsData();
+        });
+    </script>
+</body>
+</html> 

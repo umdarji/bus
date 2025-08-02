@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Bus Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="../styles.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav class="col-md-3 col-lg-2 d-md-block admin-sidebar collapse">
+                <div class="position-sticky pt-3">
+                    <div class="text-center mb-4">
+                        <h4 class="text-white">
+                            <i class="fas fa-bus me-2"></i>BusGo Admin
+                        </h4>
+                        <small class="text-muted">Administration Panel</small>
+                    </div>
+                    
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="dashboard.html">
+                                <i class="fas fa-tachometer-alt"></i>
+                                Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="buses.html">
+                                <i class="fas fa-bus"></i>
+                                Manage Buses
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="routes.html">
+                                <i class="fas fa-route"></i>
+                                Manage Routes
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="bookings.html">
+                                <i class="fas fa-ticket-alt"></i>
+                                Booking Reports
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="cancellations.html">
+                                <i class="fas fa-times-circle"></i>
+                                Cancellation Management
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="users.html">
+                                <i class="fas fa-users"></i>
+                                Manage Users
+                            </a>
+                        </li>
+                        <li class="nav-item mt-3">
+                            <a class="nav-link" href="../index.html">
+                                <i class="fas fa-home"></i>
+                                Back to Website
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="logout()">
+                                <i class="fas fa-sign-out-alt"></i>
+                                Logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Main content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Dashboard</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <div class="btn-group me-2">
+                            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="refreshStats()">
+                                <i class="fas fa-sync-alt me-1"></i>Refresh
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="row mb-4">
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="stats-card">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h3 id="totalBuses">0</h3>
+                                    <p class="mb-0">Total Buses</p>
+                                </div>
+                                <div class="align-self-center">
+                                    <i class="fas fa-bus fa-2x"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="stats-card">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h3 id="totalBookings">0</h3>
+                                    <p class="mb-0">Total Bookings</p>
+                                </div>
+                                <div class="align-self-center">
+                                    <i class="fas fa-ticket-alt fa-2x"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="stats-card">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h3 id="totalUsers">0</h3>
+                                    <p class="mb-0">Registered Users</p>
+                                </div>
+                                <div class="align-self-center">
+                                    <i class="fas fa-users fa-2x"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="stats-card">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h3 id="totalRevenue">$0</h3>
+                                    <p class="mb-0">Total Revenue</p>
+                                </div>
+                                <div class="align-self-center">
+                                    <i class="fas fa-dollar-sign fa-2x"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="stats-card">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h3 id="totalCancellations">0</h3>
+                                    <p class="mb-0">Cancellations</p>
+                                </div>
+                                <div class="align-self-center">
+                                    <i class="fas fa-times-circle fa-2x text-danger"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="card shadow">
+                            <div class="card-header">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-chart-line me-2"></i>Recent Bookings
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Booking ID</th>
+                                                <th>Bus</th>
+                                                <th>Route</th>
+                                                <th>Date</th>
+                                                <th>Amount</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="recentBookingsTable">
+                                            <!-- Recent bookings will be loaded here -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-4">
+                        <div class="card shadow">
+                            <div class="card-header">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-chart-pie me-2"></i>Quick Stats
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <span>Running Buses</span>
+                                        <span id="runningBuses">0</span>
+                                    </div>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-success" id="runningBusesBar" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <span>Confirmed Bookings</span>
+                                        <span id="confirmedBookings">0</span>
+                                    </div>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-primary" id="confirmedBookingsBar" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <span>Average Occupancy</span>
+                                        <span id="avgOccupancy">0%</span>
+                                    </div>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-info" id="avgOccupancyBar" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Quick Actions -->
+                        <div class="card shadow mt-4">
+                            <div class="card-header">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-bolt me-2"></i>Quick Actions
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-grid gap-2">
+                                    <a href="buses.html" class="btn btn-primary">
+                                        <i class="fas fa-plus me-2"></i>Add New Bus
+                                    </a>
+                                    <a href="routes.html" class="btn btn-success">
+                                        <i class="fas fa-route me-2"></i>Add New Route
+                                    </a>
+                                    <a href="bookings.html" class="btn btn-info">
+                                        <i class="fas fa-file-alt me-2"></i>View All Bookings
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../script.js"></script>
+    <script>
+        // Check admin authentication
+        function checkAdminAuth() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (!currentUser || currentUser.role !== 'admin') {
+                alert('Access denied. Admin privileges required.');
+                window.location.href = '../login.html';
+                return false;
+            }
+            return true;
+        }
+        
+        // Load dashboard statistics
+        function loadDashboardStats() {
+            if (!checkAdminAuth()) return;
+            
+            const buses = JSON.parse(localStorage.getItem('buses') || '[]');
+            const bookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            
+            // Calculate statistics
+            const totalBuses = buses.length;
+            const totalBookings = bookings.length;
+            const totalUsers = users.filter(user => user.role === 'user').length;
+            const totalRevenue = bookings
+                .filter(booking => booking.status === 'confirmed')
+                .reduce((sum, booking) => sum + booking.totalAmount, 0);
+            
+            const totalCancellations = bookings.filter(booking => booking.status === 'cancelled').length;
+            
+            const runningBuses = buses.filter(bus => bus.status === 'running').length;
+            const confirmedBookings = bookings.filter(booking => booking.status === 'confirmed').length;
+            
+            // Calculate average occupancy
+            const totalCapacity = buses.reduce((sum, bus) => sum + bus.capacity, 0);
+            const totalOccupied = buses.reduce((sum, bus) => sum + (bus.capacity - bus.availableSeats), 0);
+            const avgOccupancy = totalCapacity > 0 ? Math.round((totalOccupied / totalCapacity) * 100) : 0;
+            
+            // Update stats cards
+            document.getElementById('totalBuses').textContent = totalBuses;
+            document.getElementById('totalBookings').textContent = totalBookings;
+            document.getElementById('totalUsers').textContent = totalUsers;
+            document.getElementById('totalRevenue').textContent = '$' + totalRevenue;
+            document.getElementById('totalCancellations').textContent = totalCancellations;
+            
+            // Update progress bars
+            document.getElementById('runningBuses').textContent = runningBuses;
+            document.getElementById('runningBusesBar').style.width = totalBuses > 0 ? (runningBuses / totalBuses * 100) + '%' : '0%';
+            
+            document.getElementById('confirmedBookings').textContent = confirmedBookings;
+            document.getElementById('confirmedBookingsBar').style.width = totalBookings > 0 ? (confirmedBookings / totalBookings * 100) + '%' : '0%';
+            
+            document.getElementById('avgOccupancy').textContent = avgOccupancy + '%';
+            document.getElementById('avgOccupancyBar').style.width = avgOccupancy + '%';
+            
+            // Load recent bookings
+            loadRecentBookings();
+        }
+        
+        // Load recent bookings
+        function loadRecentBookings() {
+            const bookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+            const recentBookings = bookings
+                .sort((a, b) => new Date(b.bookingDate) - new Date(a.bookingDate))
+                .slice(0, 10);
+            
+            const tableBody = document.getElementById('recentBookingsTable');
+            let html = '';
+            
+            if (recentBookings.length === 0) {
+                html = '<tr><td colspan="6" class="text-center text-muted">No bookings found</td></tr>';
+            } else {
+                recentBookings.forEach(booking => {
+                    const statusClass = booking.status === 'confirmed' ? 'status-running' : 'status-cancelled';
+                    html += `
+                        <tr>
+                            <td>#${booking.id}</td>
+                            <td>${booking.busNumber}</td>
+                            <td>${booking.from} → ${booking.to}</td>
+                            <td>${formatDate(booking.date)}</td>
+                            <td>$${booking.totalAmount}</td>
+                            <td><span class="badge ${statusClass}">${booking.status.toUpperCase()}</span></td>
+                        </tr>
+                    `;
+                });
+            }
+            
+            tableBody.innerHTML = html;
+        }
+        
+        // Refresh statistics
+        function refreshStats() {
+            loadDashboardStats();
+        }
+        
+        // Logout function
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = '../login.html';
+        }
+        
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            loadDashboardStats();
+        });
+    </script>
+</body>
+</html> 

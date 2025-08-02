@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cancellation Policy - BusGo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+    <meta name="myenv" content="production">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-bus me-2"></i>BusGo
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="booking.html">Book Ticket</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="bookings.html">My Bookings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="cancellation.html">Cancellation</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item" id="loginNav">
+                        <a class="nav-link" href="login.html">Login</a>
+                    </li>
+                    <li class="nav-item" id="registerNav">
+                        <a class="nav-link" href="register.html">Register</a>
+                    </li>
+                    <li class="nav-item dropdown" id="userNav" style="display: none;">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-user me-1"></i><span id="userName">User</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="bookings.html">My Bookings</a></li>
+                            <li><a class="dropdown-item" href="profile.html">Profile</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" onclick="logout()">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="container text-center">
+            <h1 class="display-4 fw-bold mb-4">
+                <i class="fas fa-times-circle me-3"></i>Cancellation Policy
+            </h1>
+            <p class="lead mb-4">Understand our cancellation terms and conditions</p>
+        </div>
+    </div>
+
+    <!-- Cancellation Policy Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="card shadow fade-in-up">
+                        <div class="card-header">
+                            <h3 class="mb-0">
+                                <i class="fas fa-file-contract me-2"></i>Cancellation Terms & Conditions
+                            </h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="alert alert-info">
+                                <i class="fas fa-info-circle me-2"></i>
+                                <strong>Important:</strong> Please read our cancellation policy carefully before making a booking.
+                            </div>
+
+                            <h5 class="text-primary mb-3">
+                                <i class="fas fa-clock me-2"></i>Cancellation Timeframes
+                            </h5>
+                            <div class="table-responsive mb-4">
+                                <table class="table table-bordered cancellation-policy-table">
+                                    <thead class="table-primary">
+                                        <tr>
+                                            <th>Cancellation Time</th>
+                                            <th>Refund Amount</th>
+                                            <th>Processing Fee</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>More than 24 hours before departure</td>
+                                            <td>90% of ticket price</td>
+                                            <td>$5.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>12-24 hours before departure</td>
+                                            <td>75% of ticket price</td>
+                                            <td>$10.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>6-12 hours before departure</td>
+                                            <td>50% of ticket price</td>
+                                            <td>$15.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Less than 6 hours before departure</td>
+                                            <td>No refund</td>
+                                            <td>N/A</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <h5 class="text-primary mb-3">
+                                <i class="fas fa-exclamation-triangle me-2"></i>Cancellation Rules
+                            </h5>
+                            <ul class="list-group list-group-flush mb-4">
+                                <li class="list-group-item">
+                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                    Cancellations must be made through our website or customer service
+                                </li>
+                                <li class="list-group-item">
+                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                    Refunds will be processed within 5-7 business days
+                                </li>
+                                <li class="list-group-item">
+                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                    Processing fees are non-refundable
+                                </li>
+                                <li class="list-group-item">
+                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                    No refunds for no-shows or missed departures
+                                </li>
+                                <li class="list-group-item">
+                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                    Special circumstances may be considered on a case-by-case basis
+                                </li>
+                            </ul>
+
+                            <h5 class="text-primary mb-3">
+                                <i class="fas fa-phone me-2"></i>How to Cancel
+                            </h5>
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <div class="card h-100">
+                                        <div class="card-body text-center">
+                                            <i class="fas fa-laptop fa-3x text-primary mb-3"></i>
+                                            <h6>Online Cancellation</h6>
+                                            <p class="small">Go to "My Bookings" and click the cancel button next to your booking</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card h-100">
+                                        <div class="card-body text-center">
+                                            <i class="fas fa-phone fa-3x text-primary mb-3"></i>
+                                            <h6>Phone Cancellation</h6>
+                                            <p class="small">Call our customer service at 1-800-BUSGO-1</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h5 class="text-primary mb-3">
+                                <i class="fas fa-question-circle me-2"></i>Frequently Asked Questions
+                            </h5>
+                            <div class="accordion cancellation-faq" id="cancellationFAQ">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                            Can I cancel my ticket after the bus has departed?
+                                        </button>
+                                    </h2>
+                                    <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#cancellationFAQ">
+                                        <div class="accordion-body">
+                                            No, tickets cannot be cancelled after the bus has departed. This is considered a no-show and no refund will be provided.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                            How long does it take to receive my refund?
+                                        </button>
+                                    </h2>
+                                    <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#cancellationFAQ">
+                                        <div class="accordion-body">
+                                            Refunds are typically processed within 5-7 business days. The time may vary depending on your payment method and bank.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                            What if the bus is cancelled by the company?
+                                        </button>
+                                    </h2>
+                                    <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#cancellationFAQ">
+                                        <div class="accordion-body">
+                                            If we cancel a bus service, you will receive a full refund including any processing fees. We will also offer alternative travel options when possible.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                                            Can I transfer my ticket to someone else?
+                                        </button>
+                                    </h2>
+                                    <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#cancellationFAQ">
+                                        <div class="accordion-body">
+                                            Yes, you can transfer your ticket to another person up to 2 hours before departure. Contact our customer service for assistance.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="alert alert-warning mt-4">
+                                <i class="fas fa-exclamation-triangle me-2"></i>
+                                <strong>Note:</strong> This cancellation policy is subject to change. Please check our website for the most current terms and conditions.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Cancellation Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="card shadow fade-in-up">
+                        <div class="card-header">
+                            <h3 class="mb-0">
+                                <i class="fas fa-rocket me-2"></i>Quick Cancellation
+                            </h3>
+                        </div>
+                        <div class="card-body">
+                            <p class="mb-4">Need to cancel a booking? Enter your booking details below:</p>
+                            
+                            <form id="quickCancellationForm" class="cancellation-form">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="bookingId" class="form-label">Booking ID</label>
+                                            <input type="text" class="form-control" id="bookingId" placeholder="Enter your booking ID" required>
+                                            <div class="form-text">You can find your booking ID in your confirmation email or in "My Bookings"</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="email" class="form-label">Email Address</label>
+                                            <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                                            <div class="form-text">The email address used for booking</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="phone" class="form-label">Phone Number (Optional)</label>
+                                            <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number">
+                                            <div class="form-text">For faster processing and updates</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="reason" class="form-label">Cancellation Reason</label>
+                                            <select class="form-select" id="reason">
+                                                <option value="">Select a reason (optional)</option>
+                                                <option value="change_of_plans">Change of Plans</option>
+                                                <option value="emergency">Emergency</option>
+                                                <option value="found_alternative">Found Alternative Transportation</option>
+                                                <option value="weather">Weather Conditions</option>
+                                                <option value="personal">Personal Reasons</option>
+                                                <option value="other">Other</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="comments" class="form-label">Additional Comments</label>
+                                    <textarea class="form-control" id="comments" rows="3" placeholder="Any additional information about your cancellation..."></textarea>
+                                </div>
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="refundPreference">
+                                    <label class="form-check-label" for="refundPreference">
+                                        I would like to receive my refund via the original payment method
+                                    </label>
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-primary btn-lg">
+                                        <i class="fas fa-search me-2"></i>Find My Booking
+                                    </button>
+                                </div>
+                            </form>
+
+                            <div id="bookingResult" class="mt-4 cancellation-result" style="display: none;">
+                                <!-- Booking details will be shown here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Information -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="card shadow fade-in-up">
+                        <div class="card-header">
+                            <h3 class="mb-0">
+                                <i class="fas fa-headset me-2"></i>Need Help?
+                            </h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h5 class="text-primary">
+                                        <i class="fas fa-phone me-2"></i>Customer Service
+                                    </h5>
+                                    <p><strong>Phone:</strong> 1-800-BUSGO-1</p>
+                                    <p><strong>Hours:</strong> 24/7</p>
+                                    <p><strong>Email:</strong> support@busgo.com</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5 class="text-primary">
+                                        <i class="fas fa-clock me-2"></i>Response Time
+                                    </h5>
+                                    <p><strong>Phone:</strong> Immediate</p>
+                                    <p><strong>Email:</strong> Within 2 hours</p>
+                                    <p><strong>Online:</strong> Instant</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5><i class="fas fa-bus me-2"></i>BusGo</h5>
+                    <p class="mb-0">Your trusted partner for comfortable and reliable bus travel.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-0">&copy; 2024 BusGo. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Check user authentication
+        function checkAuth() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (currentUser) {
+                document.getElementById('loginNav').style.display = 'none';
+                document.getElementById('registerNav').style.display = 'none';
+                document.getElementById('userNav').style.display = 'block';
+                document.getElementById('userName').textContent = currentUser.name;
+            } else {
+                document.getElementById('loginNav').style.display = 'block';
+                document.getElementById('registerNav').style.display = 'block';
+                document.getElementById('userNav').style.display = 'none';
+            }
+        }
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = 'index.html';
+        }
+
+        // Handle quick cancellation form
+        document.getElementById('quickCancellationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const bookingId = document.getElementById('bookingId').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const reason = document.getElementById('reason').value;
+            const comments = document.getElementById('comments').value;
+            const refundPreference = document.getElementById('refundPreference').checked;
+            
+            // Get bookings from localStorage
+            const bookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+            const booking = bookings.find(b => b.id == bookingId && b.email === email);
+            
+            const resultDiv = document.getElementById('bookingResult');
+            
+            if (booking) {
+                const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                if (!currentUser || booking.userId !== currentUser.id) {
+                    resultDiv.innerHTML = `
+                        <div class="alert alert-danger">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            <strong>Access Denied:</strong> This booking does not belong to your account.
+                        </div>
+                    `;
+                } else {
+                    const canCancel = canCancelBooking(booking);
+                    const refundInfo = calculateRefund(booking);
+                    
+                    resultDiv.innerHTML = `
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">Booking Details</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p><strong>Booking ID:</strong> ${booking.id}</p>
+                                        <p><strong>From:</strong> ${booking.from}</p>
+                                        <p><strong>To:</strong> ${booking.to}</p>
+                                        <p><strong>Date:</strong> ${formatDate(booking.journeyDate)}</p>
+                                        <p><strong>Time:</strong> ${booking.departureTime}</p>
+                                        <p><strong>Status:</strong> <span class="badge ${getStatusClass(booking.status)}">${booking.status.toUpperCase()}</span></p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><strong>Passengers:</strong> ${booking.numberOfPassengers}</p>
+                                        <p><strong>Total Amount:</strong> $${booking.totalAmount}</p>
+                                        <p><strong>Booking Date:</strong> ${formatDate(booking.bookingDate)}</p>
+                                        <p><strong>Refund Amount:</strong> $${refundInfo.amount}</p>
+                                        <p><strong>Processing Fee:</strong> $${refundInfo.fee}</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="alert alert-info mt-3">
+                                    <h6><i class="fas fa-info-circle me-2"></i>Cancellation Details</h6>
+                                    <p class="mb-1"><strong>Phone:</strong> ${phone || 'Not provided'}</p>
+                                    <p class="mb-1"><strong>Reason:</strong> ${reason ? getReasonText(reason) : 'Not specified'}</p>
+                                    <p class="mb-1"><strong>Comments:</strong> ${comments || 'None'}</p>
+                                    <p class="mb-0"><strong>Refund Preference:</strong> ${refundPreference ? 'Original payment method' : 'Not specified'}</p>
+                                </div>
+                                
+                                ${canCancel ? `
+                                    <div class="text-center mt-3">
+                                        <button class="btn btn-danger btn-lg" onclick="cancelBooking(${booking.id}, '${reason}', '${comments}', ${refundPreference})">
+                                            <i class="fas fa-times-circle me-2"></i>Cancel Booking
+                                        </button>
+                                        <p class="text-muted mt-2 small">By clicking this button, you agree to our cancellation terms</p>
+                                    </div>
+                                ` : `
+                                    <div class="alert alert-warning mt-3">
+                                        <i class="fas fa-clock me-2"></i>
+                                        This booking cannot be cancelled. It's either too close to departure time or already cancelled.
+                                    </div>
+                                `}
+                            </div>
+                        </div>
+                    `;
+                }
+            } else {
+                resultDiv.innerHTML = `
+                    <div class="alert alert-danger">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        <strong>Booking Not Found:</strong> No booking found with the provided ID and email.
+                    </div>
+                `;
+            }
+            
+            resultDiv.style.display = 'block';
+        });
+
+        // Check if booking can be cancelled
+        function canCancelBooking(booking) {
+            if (booking.status === 'cancelled') return false;
+            
+            const journeyDate = new Date(booking.journeyDate + ' ' + booking.departureTime);
+            const now = new Date();
+            const hoursDifference = (journeyDate - now) / (1000 * 60 * 60);
+            
+            return hoursDifference > 6; // Can cancel if more than 6 hours before departure
+        }
+
+        // Calculate refund amount
+        function calculateRefund(booking) {
+            const journeyDate = new Date(booking.journeyDate + ' ' + booking.departureTime);
+            const now = new Date();
+            const hoursDifference = (journeyDate - now) / (1000 * 60 * 60);
+            
+            let refundPercentage = 0;
+            let processingFee = 0;
+            
+            if (hoursDifference > 24) {
+                refundPercentage = 0.9;
+                processingFee = 5;
+            } else if (hoursDifference > 12) {
+                refundPercentage = 0.75;
+                processingFee = 10;
+            } else if (hoursDifference > 6) {
+                refundPercentage = 0.5;
+                processingFee = 15;
+            } else {
+                refundPercentage = 0;
+                processingFee = 0;
+            }
+            
+            return {
+                amount: (booking.totalAmount * refundPercentage - processingFee).toFixed(2),
+                fee: processingFee
+            };
+        }
+
+        // Get reason text
+        function getReasonText(reason) {
+            const reasons = {
+                'change_of_plans': 'Change of Plans',
+                'emergency': 'Emergency',
+                'found_alternative': 'Found Alternative Transportation',
+                'weather': 'Weather Conditions',
+                'personal': 'Personal Reasons',
+                'other': 'Other'
+            };
+            return reasons[reason] || reason;
+        }
+
+        // Cancel booking
+        function cancelBooking(bookingId, reason, comments, refundPreference) {
+            if (!confirm('Are you sure you want to cancel this booking? This action cannot be undone.')) {
+                return;
+            }
+            
+            const bookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+            const bookingIndex = bookings.findIndex(b => b.id === bookingId);
+            
+            if (bookingIndex !== -1) {
+                // Update booking with cancellation details
+                bookings[bookingIndex].status = 'cancelled';
+                bookings[bookingIndex].cancellationDate = new Date().toISOString();
+                bookings[bookingIndex].cancellationReason = reason;
+                bookings[bookingIndex].cancellationComments = comments;
+                bookings[bookingIndex].refundPreference = refundPreference;
+                
+                localStorage.setItem('bookings', JSON.stringify(bookings));
+                
+                // Update bus available seats
+                const buses = JSON.parse(localStorage.getItem('buses') || '[]');
+                const busIndex = buses.findIndex(bus => bus.id === bookings[bookingIndex].busId);
+                if (busIndex !== -1) {
+                    buses[busIndex].availableSeats += bookings[bookingIndex].numberOfPassengers;
+                    localStorage.setItem('buses', JSON.stringify(buses));
+                }
+                
+                // Show success message with details
+                const resultDiv = document.getElementById('bookingResult');
+                resultDiv.innerHTML = `
+                    <div class="alert alert-success">
+                        <h5><i class="fas fa-check-circle me-2"></i>Booking Cancelled Successfully!</h5>
+                        <p><strong>Booking ID:</strong> ${bookingId}</p>
+                        <p><strong>Cancellation Date:</strong> ${new Date().toLocaleDateString()}</p>
+                        <p><strong>Refund Amount:</strong> $${calculateRefund(bookings[bookingIndex]).amount}</p>
+                        <p><strong>Processing Time:</strong> 5-7 business days</p>
+                        <hr>
+                        <p class="mb-0"><strong>Next Steps:</strong></p>
+                        <ul class="mb-0">
+                            <li>You will receive a confirmation email shortly</li>
+                            <li>Refund will be processed to your original payment method</li>
+                            <li>Contact customer service if you have any questions</li>
+                        </ul>
+                    </div>
+                `;
+                
+                // Reset form after a delay
+                setTimeout(() => {
+                    document.getElementById('quickCancellationForm').reset();
+                    resultDiv.style.display = 'none';
+                }, 5000);
+            }
+        }
+
+        // Format date
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        }
+
+        // Get status class for badge
+        function getStatusClass(status) {
+            switch(status) {
+                case 'confirmed': return 'status-running';
+                case 'cancelled': return 'status-cancelled';
+                default: return 'status-scheduled';
+            }
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuth();
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking - Bus Management System</title>
+    <meta name="myenv" content="production">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-bus me-2"></i>BusGo
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="bookings.html">My Bookings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="cancellation.html">Cancellation</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.html">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="register.html">Register</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Booking Section -->
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card shadow mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="mb-0">
+                            <i class="fas fa-ticket-alt me-2"></i>Book Your Ticket
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <div id="busDetails">
+                            <!-- Bus details will be loaded here -->
+                        </div>
+                        
+                        <form id="bookingForm" class="mt-4">
+                            <h5 class="mb-3">Passenger Information</h5>
+                            <div id="passengerForms">
+                                <!-- Passenger forms will be generated here -->
+                            </div>
+                            
+                            <div class="mt-4">
+                                <h5 class="mb-3">Payment Information</h5>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="cardNumber" class="form-label">Card Number</label>
+                                            <input type="text" class="form-control" id="cardNumber" placeholder="1234 5678 9012 3456" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="mb-3">
+                                            <label for="expiry" class="form-label">Expiry Date</label>
+                                            <input type="text" class="form-control" id="expiry" placeholder="MM/YY" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="mb-3">
+                                            <label for="cvv" class="form-label">CVV</label>
+                                            <input type="text" class="form-control" id="cvv" placeholder="123" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="cardName" class="form-label">Cardholder Name</label>
+                                    <input type="text" class="form-control" id="cardName" required>
+                                </div>
+                            </div>
+                            
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                                <button type="button" class="btn btn-secondary me-md-2" onclick="history.back()">
+                                    <i class="fas fa-arrow-left me-2"></i>Back
+                                </button>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-credit-card me-2"></i>Confirm Booking
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="card shadow">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0">
+                            <i class="fas fa-receipt me-2"></i>Booking Summary
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="bookingSummary">
+                            <!-- Booking summary will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Travel Tips -->
+                <div class="card shadow mt-4">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0">
+                            <i class="fas fa-info-circle me-2"></i>Travel Tips
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled mb-0">
+                            <li class="mb-2">
+                                <i class="fas fa-clock text-primary me-2"></i>
+                                Arrive 30 minutes before departure
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-id-card text-primary me-2"></i>
+                                Bring valid ID for verification
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-suitcase text-primary me-2"></i>
+                                Check baggage allowance
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-mobile-alt text-primary me-2"></i>
+                                Keep booking confirmation handy
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5><i class="fas fa-bus me-2"></i>BusGo</h5>
+                    <p class="mb-0">Your trusted partner for comfortable and affordable bus travel.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-0">&copy; 2024 BusGo. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+    <script>
+        let selectedBus = null;
+        let numberOfPassengers = 1;
+        
+        // Get bus ID from URL parameters
+        function getBusIdFromUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('busId');
+        }
+        
+        // Load bus details
+        function loadBusDetails() {
+            const busId = getBusIdFromUrl();
+            if (!busId) {
+                alert('No bus selected');
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            const buses = JSON.parse(localStorage.getItem('buses') || '[]');
+            selectedBus = buses.find(bus => bus.id == busId);
+            
+            if (!selectedBus) {
+                alert('Bus not found');
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            displayBusDetails();
+            generatePassengerForms();
+            updateBookingSummary();
+        }
+        
+        // Display bus details
+        function displayBusDetails() {
+            const busDetailsContainer = document.getElementById('busDetails');
+            const duration = calculateDuration(selectedBus.departureTime, selectedBus.arrivalTime);
+            
+            busDetailsContainer.innerHTML = `
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5 class="text-primary">${selectedBus.busNumber}</h5>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="fw-bold">From:</span>
+                            <span>${selectedBus.from}</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="fw-bold">To:</span>
+                            <span>${selectedBus.to}</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="fw-bold">Date:</span>
+                            <span>${formatDate(selectedBus.date)}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="fw-bold">Departure:</span>
+                            <span>${selectedBus.departureTime}</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="fw-bold">Arrival:</span>
+                            <span>${selectedBus.arrivalTime}</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="fw-bold">Duration:</span>
+                            <span>${duration}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // Generate passenger forms
+        function generatePassengerForms() {
+            const passengerFormsContainer = document.getElementById('passengerForms');
+            let html = '';
+            
+            for (let i = 1; i <= numberOfPassengers; i++) {
+                html += `
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <h6 class="mb-0">Passenger ${i}</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="firstName${i}" class="form-label">First Name</label>
+                                        <input type="text" class="form-control" id="firstName${i}" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="lastName${i}" class="form-label">Last Name</label>
+                                        <input type="text" class="form-control" id="lastName${i}" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="age${i}" class="form-label">Age</label>
+                                        <input type="number" class="form-control" id="age${i}" min="1" max="120" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="gender${i}" class="form-label">Gender</label>
+                                        <select class="form-select" id="gender${i}" required>
+                                            <option value="">Select Gender</option>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            passengerFormsContainer.innerHTML = html;
+        }
+        
+        // Update booking summary
+        function updateBookingSummary() {
+            const summaryContainer = document.getElementById('bookingSummary');
+            const totalPrice = selectedBus.price * numberOfPassengers;
+            
+            summaryContainer.innerHTML = `
+                <div class="d-flex justify-content-between mb-2">
+                    <span>Ticket Price:</span>
+                    <span>$${selectedBus.price}</span>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                    <span>Number of Passengers:</span>
+                    <span>${numberOfPassengers}</span>
+                </div>
+                <hr>
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="fw-bold">Total Amount:</span>
+                    <span class="fw-bold text-primary">$${totalPrice}</span>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                    <span>Available Seats:</span>
+                    <span class="text-success">${selectedBus.availableSeats}</span>
+                </div>
+            `;
+        }
+        
+        // Handle booking form submission
+        document.getElementById('bookingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Validate passenger forms
+            let isValid = true;
+            for (let i = 1; i <= numberOfPassengers; i++) {
+                const firstName = document.getElementById(`firstName${i}`).value;
+                const lastName = document.getElementById(`lastName${i}`).value;
+                const age = document.getElementById(`age${i}`).value;
+                const gender = document.getElementById(`gender${i}`).value;
+                
+                if (!firstName || !lastName || !age || !gender) {
+                    isValid = false;
+                    break;
+                }
+            }
+            
+            if (!isValid) {
+                alert('Please fill in all passenger information');
+                return;
+            }
+            
+            // Validate payment information
+            const cardNumber = document.getElementById('cardNumber').value;
+            const expiry = document.getElementById('expiry').value;
+            const cvv = document.getElementById('cvv').value;
+            const cardName = document.getElementById('cardName').value;
+            
+            if (!cardNumber || !expiry || !cvv || !cardName) {
+                alert('Please fill in all payment information');
+                return;
+            }
+            
+            // Create booking
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (!currentUser) {
+                alert('Please login to book a ticket');
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            const booking = {
+                id: Date.now(),
+                busId: selectedBus.id,
+                userId: currentUser.id,
+                busNumber: selectedBus.busNumber,
+                from: selectedBus.from,
+                to: selectedBus.to,
+                date: selectedBus.date,
+                departureTime: selectedBus.departureTime,
+                arrivalTime: selectedBus.arrivalTime,
+                price: selectedBus.price,
+                numberOfPassengers: numberOfPassengers,
+                totalAmount: selectedBus.price * numberOfPassengers,
+                status: 'confirmed',
+                bookingDate: new Date().toISOString(),
+                passengers: []
+            };
+            
+            // Add passenger details
+            for (let i = 1; i <= numberOfPassengers; i++) {
+                booking.passengers.push({
+                    firstName: document.getElementById(`firstName${i}`).value,
+                    lastName: document.getElementById(`lastName${i}`).value,
+                    age: document.getElementById(`age${i}`).value,
+                    gender: document.getElementById(`gender${i}`).value
+                });
+            }
+            
+            // Save booking
+            const bookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+            bookings.push(booking);
+            localStorage.setItem('bookings', JSON.stringify(bookings));
+            
+            // Update bus available seats
+            const buses = JSON.parse(localStorage.getItem('buses') || '[]');
+            const busIndex = buses.findIndex(bus => bus.id == selectedBus.id);
+            if (busIndex !== -1) {
+                buses[busIndex].availableSeats -= numberOfPassengers;
+                localStorage.setItem('buses', JSON.stringify(buses));
+            }
+            
+            // Show success message
+            alert('Booking confirmed! Your ticket has been booked successfully.');
+            
+            // Redirect to bookings page
+            window.location.href = 'bookings.html';
+        });
+        
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            loadBusDetails();
+        });
+    </script>
+</body>
+</html> 
